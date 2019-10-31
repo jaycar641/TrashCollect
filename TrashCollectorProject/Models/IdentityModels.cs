@@ -32,5 +32,7 @@ namespace TrashCollectorProject.Models
         {
             return new ApplicationDbContext();
         }
+
+  //      public System.Data.Entity.DbSet<TrashCollectorProject.Models.ApplicationUser> ApplicationUsers { get; set; }
     }
 }

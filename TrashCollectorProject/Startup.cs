@@ -9,9 +9,12 @@ namespace TrashCollectorProject
 {
     public partial class Startup
     {
+
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
+            createRolesandUsers();
+
         }
 
 
@@ -33,14 +36,15 @@ namespace TrashCollectorProject
 
             if (!roleManager.RoleExists("Customer"))
             {
-                var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
-                role.Name = "Customer";
-                roleManager.Create(role);
-
-            }
+                var role1 = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
+                role1.Name = "Customer";
+                roleManager.Create(role1);
+           }
 
          
         }
+
+
 
     }
 }

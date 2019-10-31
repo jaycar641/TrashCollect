@@ -65,6 +65,20 @@ namespace TrashCollectorProject.Models
     public class RegisterViewModel
     {
         [Required]
+        [Display(Name = "UserRoles")]
+        public string UserRoles { get; set; }
+
+        [Required]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [Display(Name = "Last Name")]
+        public string LastName  { get; set; }
+
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
@@ -79,6 +93,8 @@ namespace TrashCollectorProject.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        //USER CREDENTIALS
     }
 
     public class ResetPasswordViewModel

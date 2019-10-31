@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using TrashCollectorProject.Models;
@@ -18,8 +20,10 @@ namespace TrashCollectorProject.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
+        ApplicationDbContext context;
         public AccountController()
         {
+            context = new ApplicationDbContext();
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -139,6 +143,8 @@ namespace TrashCollectorProject.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+             ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Contains("Admin"))   
+                                            .ToList(), "Name", "Name"); 
             return View();
         }
 
@@ -149,22 +155,53 @@ namespace TrashCollectorProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(user, model.Password);
+                
+                user.UserName = model.Email;
+                
+                var result = await UserManager.CreateAsync(user,  model.Password);
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    await this.UserManager.AddToRoleAsync(user.Id,  model.UserRoles); //from the accountview model properties
+
+                    if (model.UserRoles == "Employee")
+                    {
+                        var employee = new Employee();
+                        
+                    
+                        context.employees.Add(employee);
+                        
+                        ///add zipcode employee.zipcode = model.zipcode; ///
+
+                        await context.SaveChangesAsync();
+                    }
+
+                    if (model.UserRoles == "Customer")
+                    {
+
+                        var customer = new Customer();
+
+
+                        context.customers.Add(customer);
+                       //add zipcode customer.zipcode = model.zipcode;
+                       await context.SaveChangesAsync();
+                    }
 
                     return RedirectToAction("Index", "Home");
                 }
+                ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Contains("Admin")) //change to better
+                          .ToList(), "Name", "Name");
+
                 AddErrors(result);
             }
 
