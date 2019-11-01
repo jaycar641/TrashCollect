@@ -176,28 +176,17 @@ namespace TrashCollectorProject.Controllers
 
                     if (model.UserRoles == "Employee")
                     {
-                        var employee = new Employee();
-                        
-                    
-                        context.employees.Add(employee);
-                        
-                        ///add zipcode employee.zipcode = model.zipcode; ///
+                      //  CreateEmployee();
+                        return RedirectToAction("CreateEmployee", "Account"); //do not return home, when this is saved save everything with foreign key to application user
 
-                        await context.SaveChangesAsync();
                     }
 
                     if (model.UserRoles == "Customer")
                     {
-
-                        var customer = new Customer();
-
-
-                        context.customers.Add(customer);
-                       //add zipcode customer.zipcode = model.zipcode;
-                       await context.SaveChangesAsync();
+                        return RedirectToAction("CreateCustomer", "Account"); //do not return home
+                        //  CreateCustomer();
                     }
 
-                    return RedirectToAction("Index", "Home");
                 }
                 ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Contains("Admin")) //change to better
                           .ToList(), "Name", "Name");
@@ -209,7 +198,50 @@ namespace TrashCollectorProject.Controllers
             return View(model);
         }
 
-        //
+        [AllowAnonymous]
+        public ActionResult CreateEmployee()
+        {
+            return View();
+
+        }
+
+        // POST: /Account/Register
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult CreateEmployee(Employee employee)
+        {
+            try
+            {
+                context.employees.Add(employee);
+                context.SaveChanges();
+                return RedirectToAction("Index", "Home");
+            }
+            catch
+            {
+                return View();
+            }
+
+
+        }
+
+
+        [AllowAnonymous]
+        public ActionResult CreateCustomer()
+        {
+            return View();
+
+        }
+
+        // POST: /Account/Register
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult CreateCustomer(Customer customer)
+        {
+
+            return RedirectToAction("Index", "Home");
+
+        }
+
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
         public async Task<ActionResult> ConfirmEmail(string userId, string code)
