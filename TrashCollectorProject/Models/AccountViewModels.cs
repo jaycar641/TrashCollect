@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace TrashCollectorProject.Models
@@ -68,12 +69,12 @@ namespace TrashCollectorProject.Models
         [Display(Name = "UserRoles")]
         public string UserRoles { get; set; }
 
-        [Required]
+        
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
-        [Required]
+        
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [Display(Name = "Last Name")]
         public string LastName  { get; set; }

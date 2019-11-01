@@ -174,6 +174,7 @@ namespace TrashCollectorProject.Controllers
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
                     await this.UserManager.AddToRoleAsync(user.Id,  model.UserRoles); //from the accountview model properties
 
+                   
                     if (model.UserRoles == "Employee")
                     {
                       //  CreateEmployee();
@@ -188,12 +189,13 @@ namespace TrashCollectorProject.Controllers
                     }
 
                 }
-                ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Contains("Admin")) //change to better
-                          .ToList(), "Name", "Name");
+                
 
                 AddErrors(result);
-            }
 
+            }
+            ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Contains("Admin")) //change to better
+                         .ToList(), "Name", "Name");
             // If we got this far, something failed, redisplay form
             return View(model);
         }
@@ -213,7 +215,7 @@ namespace TrashCollectorProject.Controllers
         {
             try
             {
-                context.employees.Add(employee);
+                context.employees.Add(employee1);
                 context.SaveChanges();
                 return RedirectToAction("Index", "Home");
             }
