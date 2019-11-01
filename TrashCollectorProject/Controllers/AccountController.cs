@@ -201,6 +201,7 @@ namespace TrashCollectorProject.Controllers
         [AllowAnonymous]
         public ActionResult CreateEmployee()
         {
+
             return View();
 
         }
