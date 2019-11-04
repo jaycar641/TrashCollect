@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,6 +12,7 @@ namespace TrashCollectorProject.Controllers
     {
         // GET: WebUser
         ApplicationDbContext context;
+        List<Customer> displayCustomers = new List<Customer>();
 
         public WebUserController()
         {
@@ -18,41 +20,67 @@ namespace TrashCollectorProject.Controllers
         }
         public ActionResult Index()
         {
+
+            foreach (Customer customer in context.customers)
+            {
+                displayCustomers.Add(customer);
+            }
             /// check and see if user is null and then which user it is
-            // string idUser = User.Identity.GetUserId();
+            string idUser = User.Identity.GetUserId();
 
-            //if (idUser == null)
-            //{
-            //    //can use sign in manager logged in property
-            //    return View();
-            //}
+            if (idUser == null)//IF NOT LOGGED IN
+            {
+                //can use sign in manager
+                return RedirectToAction("Index", "Home");
+            
+            }
             //else //add an if statement in role name = employee that 
-            //{
-            //    string id = User.Identity.GetUserId();
-            //    var user = context.Users.Where(e => e.Id == id).SingleOrDefault(); //returns user
-            //    var role = context.Roles.Where(e => e.Name == "Employee").Single();
-            //    if (role.Name == "Employee")
-            //    {
-            //        //find way to check user first and last name and zipcode
-            //        //checks to see if profile is complete
+            else
+            {
+                string id = User.Identity.GetUserId();
+                var user = context.Users.Where(e => e.Id == id).SingleOrDefault(); //returns user
+                var role = context.Roles.Where(e => e.Name == "Employee").Single();
+                if (role.Name == "Employee")
+                {
+
+                    try
+                    {
+                        return RedirectToAction("Edit", "WebUser");
 
 
-            //        return RedirectToAction("Index", "WebUser");
-            //        //  CreateEmployee();
-            //        //   return RedirectToAction("CreateEmployee", "Home");
-            //        //if complete goes to employee homepage, or shows all information by passing a complete model, as opposed to a incomplete customer model
-            //    }
+                    }
+
+                    catch
+                    {
+                        return RedirectToAction("Home", "Account");
+
+                    }
+                    //CHECK IF PROFILE CREATED: if there are no employees with the current user id as their forieng key, then create employee, else select that employee and go to dashboard
 
 
-            //    else
-            //    {
-            //        return RedirectToAction("CreateCustomer", "Home");
 
-            //    }
 
-            //}
-            Create();
-            return View();
+                    //        //find way to check user first and last name and zipcode
+                    //        //checks to see if profile is complete
+
+
+                    //        return RedirectToAction("Index", "WebUser");
+                    //        //  CreateEmployee();
+                    //        //   return RedirectToAction("CreateEmployee", "Home");
+                    //        //if complete goes to employee homepage, or shows all information by passing a complete model, as opposed to a incomplete customer model
+                    //    }
+
+
+                    //    else
+                    //    {
+                    //        return RedirectToAction("CreateCustomer", "Home");
+
+                    //    }
+
+                }
+                //Create();
+                return View();
+            }
         }
 
         // GET: WebUser/Details/5
@@ -62,17 +90,53 @@ namespace TrashCollectorProject.Controllers
         }
 
         // GET: WebUser/Create
-        public ActionResult Create()
+        public ActionResult CreateEmployee()
         {
 
-            if (net)
+
             return View();
         }
 
         // POST: WebUser/Create
         [HttpPost]
-        public ActionResult Create(Employee employee)
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateEmployee(Employee employee)
         {
+            string id = User.Identity.GetUserId();
+            var getUser = context.Users.Where(e => e.Id == id).FirstOrDefault(); //returns user
+            Employee employee1 = new Employee();
+            employee1.ApplicationUserId = getUser.Id; //se
+            //checks role of user and posts to that database
+            try
+            {
+                employee1.firstName = employee.firstName;
+                employee1.lastName = employee.lastName;
+                employee1.zipcode = employee.zipcode;
+                context.SaveChanges();
+
+                return Edit(employee1);
+               // return RedirectToAction("Edit", "WebUser");
+
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        public ActionResult CreateCustomer()
+        {
+
+
+            return View();
+        }
+
+        // POST: WebUser/Create
+        [HttpPost]
+        public ActionResult CreateCustomer(Customer customer)
+        {
+
+            //checks role of user and posts to that database
             try
             {
                 // TODO: Add insert logic here
@@ -86,14 +150,19 @@ namespace TrashCollectorProject.Controllers
         }
 
         // GET: WebUser/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(Employee employee)
         {
-            return View();
+            Employee employee1 = new Employee();
+
+            employee1 = context.employees.Where(e => e.Id == employee.Id).SingleOrDefault();
+            //var zipcodeList = displayCustomers.Where(e => e.zipcode == employee1.zipcode);
+
+            return View(displayCustomers);
         }
 
         // POST: WebUser/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id)
         {
             try
             {

@@ -247,12 +247,13 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\WebUser\Index.cshtml" />
-    <Content Include="Views\WebUser\CreateCustomer.cshtml" />
-    <Content Include="Views\WebUser\CreateEmployee.cshtml" />
     <Content Include="Views\WebUser\EmployeeList.cshtml" />
     <Content Include="Views\WebUser\CustomerDashboard.cshtml" />
     <Content Include="Views\WebUser\CustomerEdit.cshtml" />
+    <Content Include="Views\WebUser\CreateUser.cshtml" />
+    <Content Include="Views\WebUser\CreateEmployee.cshtml" />
+    <Content Include="Views\WebUser\CreateCustomer.cshtml" />
+    <Content Include="Views\WebUser\CustomerList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

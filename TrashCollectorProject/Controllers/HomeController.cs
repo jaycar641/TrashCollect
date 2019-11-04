@@ -19,12 +19,7 @@ namespace TrashCollectorProject.Controllers
     {
         ApplicationDbContext context;
 
-        public HomeController()
-        {
-            context = new ApplicationDbContext();
-
-        }
-
+      
         public ActionResult Index()
         {
 

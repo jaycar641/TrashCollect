@@ -177,9 +177,9 @@ namespace TrashCollectorProject.Controllers
                    
                     if (model.UserRoles == "Employee")
                     {
+                        // CreateEmployee(user);
                       
-                      // CreateEmployee(user);
-                        return RedirectToAction("Index", "WebUser");
+                        return RedirectToAction("CreateEmployee", "WebUser");
                         //created employee with foreign key of the user that was created
 
                     }
@@ -187,7 +187,7 @@ namespace TrashCollectorProject.Controllers
                     if (model.UserRoles == "Customer")
                     {
                        
-                        return RedirectToAction("Index", "WebUser"); //do not return home
+                        return RedirectToAction("CreateCustomer", "WebUser"); //do not return home
                         //  CreateCustomer();
                     }
 
