@@ -99,8 +99,9 @@ C:\Users\Jacob\Desktop\TrashCollectorProject\TrashCollectorProject\bin\Microsoft
 C:\Users\Jacob\Desktop\TrashCollectorProject\TrashCollectorProject\bin\Microsoft.Owin.Security.OAuth.xml
 C:\Users\Jacob\Desktop\TrashCollectorProject\TrashCollectorProject\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 C:\Users\Jacob\Desktop\TrashCollectorProject\TrashCollectorProject\obj\Debug\TrashCollectorProject.csprojAssemblyReference.cache
+C:\Users\Jacob\Desktop\TrashCollectorProject\TrashCollectorProject\obj\Debug\TrashCollectorProject.Migrations.InitialMigration.resources
+C:\Users\Jacob\Desktop\TrashCollectorProject\TrashCollectorProject\obj\Debug\TrashCollectorProject.Migrations.UpdateModels.resources
+C:\Users\Jacob\Desktop\TrashCollectorProject\TrashCollectorProject\obj\Debug\TrashCollectorProject.csproj.GenerateResource.cache
 C:\Users\Jacob\Desktop\TrashCollectorProject\TrashCollectorProject\obj\Debug\TrashCollectorProject.csproj.CopyComplete
 C:\Users\Jacob\Desktop\TrashCollectorProject\TrashCollectorProject\obj\Debug\TrashCollectorProject.dll
 C:\Users\Jacob\Desktop\TrashCollectorProject\TrashCollectorProject\obj\Debug\TrashCollectorProject.pdb
-C:\Users\Jacob\Desktop\TrashCollectorProject\TrashCollectorProject\obj\Debug\TrashCollectorProject.Migrations.InitialMigration.resources
-C:\Users\Jacob\Desktop\TrashCollectorProject\TrashCollectorProject\obj\Debug\TrashCollectorProject.csproj.GenerateResource.cache

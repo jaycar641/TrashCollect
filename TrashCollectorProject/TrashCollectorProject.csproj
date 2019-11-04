@@ -170,12 +170,17 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\WebUserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201910291847041_InitialMigration.cs" />
     <Compile Include="Migrations\201910291847041_InitialMigration.Designer.cs">
       <DependentUpon>201910291847041_InitialMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911022238438_UpdateModels.cs" />
+    <Compile Include="Migrations\201911022238438_UpdateModels.Designer.cs">
+      <DependentUpon>201911022238438_UpdateModels.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -242,8 +247,12 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Account\CreateEmployee.cshtml" />
-    <Content Include="Views\Account\CreateCustomer.cshtml" />
+    <Content Include="Views\WebUser\Index.cshtml" />
+    <Content Include="Views\WebUser\CreateCustomer.cshtml" />
+    <Content Include="Views\WebUser\CreateEmployee.cshtml" />
+    <Content Include="Views\WebUser\EmployeeList.cshtml" />
+    <Content Include="Views\WebUser\CustomerDashboard.cshtml" />
+    <Content Include="Views\WebUser\CustomerEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -264,6 +273,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201910291847041_InitialMigration.resx">
       <DependentUpon>201910291847041_InitialMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911022238438_UpdateModels.resx">
+      <DependentUpon>201911022238438_UpdateModels.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

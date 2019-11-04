@@ -177,14 +177,17 @@ namespace TrashCollectorProject.Controllers
                    
                     if (model.UserRoles == "Employee")
                     {
-                      //  CreateEmployee();
-                        return RedirectToAction("CreateEmployee", "Account"); //do not return home, when this is saved save everything with foreign key to application user
+                      
+                      // CreateEmployee(user);
+                        return RedirectToAction("Index", "WebUser");
+                        //created employee with foreign key of the user that was created
 
                     }
 
                     if (model.UserRoles == "Customer")
                     {
-                        return RedirectToAction("CreateCustomer", "Account"); //do not return home
+                       
+                        return RedirectToAction("Index", "WebUser"); //do not return home
                         //  CreateCustomer();
                     }
 
@@ -198,51 +201,6 @@ namespace TrashCollectorProject.Controllers
                          .ToList(), "Name", "Name");
             // If we got this far, something failed, redisplay form
             return View(model);
-        }
-
-        [AllowAnonymous]
-        public ActionResult CreateEmployee()
-        {
-
-            return View();
-
-        }
-
-        // POST: /Account/Register
-        [HttpPost]
-        [AllowAnonymous]
-        public ActionResult CreateEmployee(Employee employee)
-        {
-            try
-            {
-                context.employees.Add(employee1);
-                context.SaveChanges();
-                return RedirectToAction("Index", "Home");
-            }
-            catch
-            {
-                return View();
-            }
-
-
-        }
-
-
-        [AllowAnonymous]
-        public ActionResult CreateCustomer()
-        {
-            return View();
-
-        }
-
-        // POST: /Account/Register
-        [HttpPost]
-        [AllowAnonymous]
-        public ActionResult CreateCustomer(Customer customer)
-        {
-
-            return RedirectToAction("Index", "Home");
-
         }
 
         // GET: /Account/ConfirmEmail
